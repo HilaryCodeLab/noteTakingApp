@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "firebase": "^7.3.0",
     "mdbreact": "^4.22.0",
     "react": "^16.11.0",

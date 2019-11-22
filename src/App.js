@@ -8,14 +8,13 @@ import {
     MDBCardText,
     MDBCol,
     MDBContainer,
-    MDBRow, MDBTable, MDBTableHead, MDBTableBody
+    MDBRow, MDBTable, MDBTableHead, MDBTableBody, MDBFormInline, MDBIcon, MDBListGroup, MDBListGroupItem
 } from 'mdbreact';
 import React,{Component} from 'react';
 import NavbarPage from "./components/NavBarPage";
 import {Link} from "react-router-dom";
 import './App.css';
 import firebase from './Firebase';
-
 
 
 class App extends Component{

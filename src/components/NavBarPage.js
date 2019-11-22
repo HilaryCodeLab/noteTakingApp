@@ -53,24 +53,9 @@ class NavBarPage extends React.Component {
                                     </MDBNavItem>
                                 </MDBNavbarNav>
                                 <MDBNavbarNav right>
-                                    {/*<MDBNavItem>*/}
-                                    {/*    <MDBNavLink to="#"><MDBIcon fab icon="facebook-f" /></MDBNavLink>*/}
-                                    {/*</MDBNavItem>*/}
-                                    {/*<MDBNavItem>*/}
-                                    {/*    <MDBNavLink to="#"><MDBIcon fab icon="twitter" /></MDBNavLink>*/}
-                                    {/*</MDBNavItem>*/}
-                                    {/*<MDBNavItem>*/}
-                                    {/*    <MDBNavLink to="#"><MDBIcon icon="search" /></MDBNavLink>*/}
-                                    {/*</MDBNavItem>*/}
 
                                     <MDBNavItem>
-                                        <MDBFormInline waves>
-                                            <div className="md-form my-0">
-                                                 <MDBIcon icon="search"/>
 
-                                                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
-                                            </div>
-                                        </MDBFormInline>
                                     </MDBNavItem>
                                 </MDBNavbarNav>
                             </MDBCollapse>
