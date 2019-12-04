@@ -10,8 +10,10 @@ import "mdbreact/dist/css/mdb.css";
 import Edit from './components/Edit';
 import Create from './components/Create';
 import Show from './components/Show';
-
-// import "bootstrap-css-only/css/bootstrap.min.css";
+import Note from './components/Note';
+import SearchFilter from './components/SearchFilter';
+import "bootstrap-css-only/css/bootstrap.min.css";
+import NavBarPage from "./components/NavBarPage";
 
 
 
@@ -23,6 +25,10 @@ ReactDOM.render(
             <Route path ='/edit/:id' component={Edit}/>
             <Route path ='/create' component={Create}/>
             <Route path ='/show/:id' component={Show}/>
+            <Route path='/note/' component={Note}/>
+            <Route path='/create' component={NavBarPage}/>
+            <Route path='/searchFilter/' component={SearchFilter}/>
+
         </div>
     </Router>
     , document.getElementById('root'));

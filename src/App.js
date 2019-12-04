@@ -15,6 +15,12 @@ import NavbarPage from "./components/NavBarPage";
 import {Link} from "react-router-dom";
 import './App.css';
 import firebase from './Firebase';
+import SearchFilter from "./components/SearchFilter";
+// eslint-disable-next-line import/no-webpack-loader-syntax
+
+
+
+
 
 
 class App extends Component{
@@ -23,8 +29,13 @@ constructor(props){
     // eslint-disable-next-line no-undef
     this.ref = firebase.firestore().collection("notes");
     this.unsubscribe=null;
+    // eslint-disable-next-line import/no-webpack-loader-syntax
+
     this.state={
-        notes:[]
+        notes:[],
+        search:'',
+        data:[]
+
     }
 }
 
@@ -45,9 +56,34 @@ onCollectionUpdate = (querySnapshot) =>{
 
 componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+
 }
+//onChange
+onChange = (e) =>{
+  this.setState({search:e.target.value});
+};
+
+//render countries, display filtered countries
+// renderCountries=(country)=>{
+//
+//         return(
+//             <MDBCard>
+//                 <MDBCardBody>
+//                     <MDBCardTitle>{country.name}</MDBCardTitle>
+//                     <MDBCardText>{country.title}</MDBCardText>
+//                 </MDBCardBody>
+//             </MDBCard>
+//         )
+// };
 
     render(){
+        const noteList = this.state.notes;
+        // const {search} = this.state;
+        // const {countries} =this.state;
+        // const filteredNotes = noteList.filter(note=>{return note.title.toLowerCase().indexOf(search.toLowerCase())!==-1});
+        // const noteArr = this.state.data;
+        // const filteredCountries = countryList.filter(country=>{return country.name.toLowerCase().indexOf(search.toLowerCase())!==-1});
+
         return (
             <MDBContainer fluid>
                 <MDBRow>
@@ -55,12 +91,16 @@ componentDidMount() {
                 </MDBRow>
                 <MDBRow>
                     <h4><Link to="/create">Add Note</Link></h4>
+                    <MDBCol>
+                        <div className="active-pink-3 active-pink-4 mb-4">
+                            <form className="form-inline mt-4 mb-4">
+                                <MDBIcon icon="search"/>
+                                <input className="form-control" type="text" placeholder="Search here" onChange={this.onChange}/>
+                            </form>
+                        </div>
+                    </MDBCol>
                 </MDBRow>
                 <MDBRow>
-                    {/*<MDBCol sm="4">*/}
-                    {/*    <MDBCard style={{ width: "22rem", backgroundColor:"Pink" }} >*/}
-                    {/*<MDBCardImage className="img-sm" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" waves />*/}
-                    {/*<MDBCardBody>*/}
                     <MDBTable>
                         <MDBTableHead>
                             <tr>
@@ -71,7 +111,7 @@ componentDidMount() {
                         </MDBTableHead>
                         <MDBTableBody>
                             {
-                                this.state.notes.map(note =>
+                                noteList.map(note =>
                                     <tr>
                                         <td>{note.date}</td>
                                         <td><Link to={`/show/${note.key}`}>{note.title}</Link></td>
@@ -82,6 +122,12 @@ componentDidMount() {
                     </MDBTable>
 
                 </MDBRow>
+                <MDBRow>
+                    Test Here....
+                    <SearchFilter/>
+                </MDBRow>
+
+
             </MDBContainer>
         );
 

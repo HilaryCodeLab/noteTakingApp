@@ -1,7 +1,9 @@
 import firebase from '../Firebase.js';
-import React,{Component} from "react";
+import React, {Component, useState} from "react";
 import {Link} from 'react-router-dom';
-import {MDBBtn, MDBContainer,MDBInput} from "mdbreact";
+import {MDBBtn, MDBContainer, MDBInput, MDBModal, MDBModalBody, MDBModalFooter, MDBModalHeader} from "mdbreact";
+import Modal from './Modal';
+
 
 class Create extends Component{
     constructor(props) {
@@ -10,9 +12,18 @@ class Create extends Component{
         this.state={
             title:'',
             date:'',
-            description:''
+            description:'',
+            isShowing: false
         };
     }
+
+    openModalHandler = () => {
+        this.setState({isShowing: true});
+    };
+
+    closeModalHandler = () => {
+        this.setState({isShowing: false});
+    };
 
     onChange = (e) => {
         const state = this.state;
@@ -46,8 +57,18 @@ class Create extends Component{
 
     render() {
         const {title,date,description} = this.state;
-        return(
+         return(
             <MDBContainer>
+                { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop">Test</div> : null }
+
+                <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
+
+                <Modal
+                    className="modal"
+                    show={this.state.isShowing}
+                    close={this.closeModalHandler}>
+                    Maybe aircrafts fly very high because they don't want to be seen in plane sight?
+                </Modal>
                 <h4>
                     <Link to="/">Home</Link>
                 </h4>
@@ -57,9 +78,7 @@ class Create extends Component{
                     <MDBInput name="description" icon="pencil-alt" label="Description" getValue={description} type="textarea" hint="Description" onChange={this.onChange} group/>
                     <MDBBtn type="submit" color="secondary">Add</MDBBtn>
                 </form>
-
             </MDBContainer>
-
         );
     };
 }
