@@ -10,6 +10,7 @@ class Edit extends Component{
             key:'',
             date:'',
             title:'',
+            type:'',
             description:''
         };
     }
@@ -23,6 +24,7 @@ class Edit extends Component{
                     key:doc.id,
                     date:note.date,
                     title:note.title,
+                    type:note.type,
                     description:note.description
                 });
             }else{
@@ -38,16 +40,18 @@ class Edit extends Component{
 
   onSubmit = (e) => {
         e.preventDefault();
-        const{title,date,description}=this.state;
+        const{title,date,description,type}=this.state;
         const updateRef = firebase.firestore().collection('notes').doc(this.state.key);
         updateRef.set({
             title,
             date,
-            description
+            description,
+            type
         }).then((docRef)=>{
             this.setState({
                 key:'',
                 date:'',
+                type:'',
                 description:'',
                 title:''
             });
@@ -78,6 +82,11 @@ class Edit extends Component{
                               <label htmlFor="title">Title:</label>
                               <input type="text" className="form-control" name="title" value={this.state.title}
                                      onChange={this.onChange} placeholder="Title"/>
+                          </div>
+                          <div className="form-group">
+                              <label htmlFor="type">Type: </label>
+                              <input type="text" className="form-control" name="type" value={this.state.type}
+                                     onChange={this.onChange} placeholder="Type"/>
                           </div>
                           <div className="form-group">
                               <label htmlFor="description">Description:</label>

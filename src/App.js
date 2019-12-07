@@ -19,10 +19,6 @@ import SearchFilter from "./components/SearchFilter";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 
 
-
-
-
-
 class App extends Component{
 constructor(props){
     super(props);
@@ -42,13 +38,15 @@ constructor(props){
 onCollectionUpdate = (querySnapshot) =>{
     const notes = [];
     querySnapshot.forEach((doc)=>{
-        const {title,date,description}=doc.data();
+        const {title,date,type,description}=doc.data();
         notes.push({
             key:doc.id,
             doc,
             title,
             date,
-            description
+            type,
+            description,
+
         });
     });
     this.setState({notes});
@@ -62,19 +60,6 @@ componentDidMount() {
 onChange = (e) =>{
   this.setState({search:e.target.value});
 };
-
-//render countries, display filtered countries
-// renderCountries=(country)=>{
-//
-//         return(
-//             <MDBCard>
-//                 <MDBCardBody>
-//                     <MDBCardTitle>{country.name}</MDBCardTitle>
-//                     <MDBCardText>{country.title}</MDBCardText>
-//                 </MDBCardBody>
-//             </MDBCard>
-//         )
-// };
 
     render(){
         const noteList = this.state.notes;
@@ -91,42 +76,45 @@ onChange = (e) =>{
                 </MDBRow>
                 <MDBRow>
                     <h4><Link to="/create">Add Note</Link></h4>
-                    <MDBCol>
+                    <MDBRow>
                         <div className="active-pink-3 active-pink-4 mb-4">
                             <form className="form-inline mt-4 mb-4">
                                 <MDBIcon icon="search"/>
                                 <input className="form-control" type="text" placeholder="Search here" onChange={this.onChange}/>
                             </form>
                         </div>
+                    </MDBRow>
+                </MDBRow>
+                <MDBRow>
+                    <MDBCol md="6">
+                        <MDBTable striped>
+                            <MDBTableHead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                </tr>
+                            </MDBTableHead>
+                            <MDBTableBody>
+                                {
+                                    noteList.map(note =>
+                                        <tr>
+                                            <td>{note.date}</td>
+                                            <td>{note.type}</td>
+                                            <td><Link to={`/show/${note.key}`}>{note.title}</Link></td>
+                                            <td>{note.description}</td>
+                                        </tr>
+                                    )}
+                            </MDBTableBody>
+                        </MDBTable>
+
+                    </MDBCol>
+                    <MDBCol md="6">
+                        Test Here....
+                        <SearchFilter/>
                     </MDBCol>
                 </MDBRow>
-                <MDBRow>
-                    <MDBTable>
-                        <MDBTableHead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Title</th>
-                                <th>Description</th>
-                            </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
-                            {
-                                noteList.map(note =>
-                                    <tr>
-                                        <td>{note.date}</td>
-                                        <td><Link to={`/show/${note.key}`}>{note.title}</Link></td>
-                                        <td>{note.description}</td>
-                                    </tr>
-                                )}
-                        </MDBTableBody>
-                    </MDBTable>
-
-                </MDBRow>
-                <MDBRow>
-                    Test Here....
-                    <SearchFilter/>
-                </MDBRow>
-
 
             </MDBContainer>
         );

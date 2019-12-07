@@ -55,6 +55,7 @@ onChange(e){
                                         key={note.id}
                                          title={note.title}
                                             description={note.description}
+                                            type={note.type}
                                      />
                                      )
 

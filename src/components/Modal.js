@@ -1,31 +1,26 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {MDBBtn, MDBContainer, MDBModal, MDBModalBody, MDBModalFooter, MDBModalHeader} from "mdbreact";
 
-import '../Modal.css';
-
-const modal = (props) => {
-    return (
-        <div>
-            <div className="modal-wrapper"
-                 style={{
-                     transform: props.show ? 'translateY(0vh)' : 'translateY(-100vh)',
-                     opacity: props.show ? '1' : '0'
-                 }}>
-                <div className="modal-header">
-                    <h3>Modal Header</h3>
-                    <span className="close-modal-btn" onClick={props.close}>×</span>
-                </div>
-                <div className="modal-body">
-                    <p>
-                        {props.children}
-                    </p>
-                </div>
-                <div className="modal-footer">
-                    <button className="btn-cancel" onClick={props.close}>CLOSE</button>
-                    <button className="btn-continue">CONTINUE</button>
-                </div>
-            </div>
-        </div>
-    )
+class Modal extends Component{
+    // constructor(props){
+    //     super(props)
+    // }
+    render() {
+        return(
+            <MDBContainer>
+                <MDBModal isOpen={this.props.show} toggle={this.props.toggle}>
+                    <MDBModalHeader toggle={this.props.toggle}> Confirm </MDBModalHeader>
+                    <MDBModalBody>
+                        <p>{this.props.children}</p>
+                    </MDBModalBody>
+                    <MDBModalFooter>
+                        <MDBBtn color="primary" onClick={this.props.delete}>Yes</MDBBtn>
+                        <MDBBtn color="secondary" onClick={this.props.close}>No</MDBBtn>
+                    </MDBModalFooter>
+                </MDBModal>
+            </MDBContainer>
+        )
+    }
 }
 
-export default modal;
+export default Modal;

@@ -5,8 +5,9 @@ class Note extends Component{
         return(
             //individual filter note
             <li>
-                Title: {this.props.title}<span/>
-                Description: {this.props.description}
+                Type: &nbsp; {this.props.type} &nbsp;
+                Title: &nbsp; {this.props.title}
+
             </li>
         )
     }

@@ -1,8 +1,14 @@
 import firebase from '../Firebase.js';
-import React, {Component, useState} from "react";
+import React, {Component} from "react";
 import {Link} from 'react-router-dom';
-import {MDBBtn, MDBContainer, MDBInput, MDBModal, MDBModalBody, MDBModalFooter, MDBModalHeader} from "mdbreact";
-import Modal from './Modal';
+import {
+    MDBBtn, MDBCardText,
+    MDBContainer,
+    MDBFormInline, MDBIcon,
+    MDBInput,
+    MDBRow
+} from "mdbreact";
+
 
 
 class Create extends Component{
@@ -12,18 +18,12 @@ class Create extends Component{
         this.state={
             title:'',
             date:'',
+            type:'',
             description:'',
-            isShowing: false
+            errors:{}
+
         };
     }
-
-    openModalHandler = () => {
-        this.setState({isShowing: true});
-    };
-
-    closeModalHandler = () => {
-        this.setState({isShowing: false});
-    };
 
     onChange = (e) => {
         const state = this.state;
@@ -31,51 +31,87 @@ class Create extends Component{
         this.setState(state);
     };
 
-    onSubmit = (e) => {
-        e.preventDefault();
-        console.log(this.state);
-        const {title,date,description} = this.state;
-
-        this.ref.add({
-            title,
-            date,
-            description
-        }).then((docRef)=>{
-            this.setState({
-                title:'',
-                date:'',
-                description:''
-            });
-
-            this.props.history.push("/");
-        })
-            .catch((error)=>{
-                console.error("Error adding document: ", error);
-            });
-
+    handleValidation() {
+        let formIsValid = true;
+         let errors = this.state.errors;
+        let {title,date,description,type} = this.state;
+        if(!type){
+            formIsValid = false;
+            errors["type"] ="Please specify the type for your note!"
+        }
+        if(!date){
+            formIsValid = false;
+           errors["date"] = "You need a date!"
+        }
+        if(!title){
+            formIsValid = false;
+            errors["title"] = "A title will be great!"
+        }
+        if(!description){
+            formIsValid = false;
+            errors["description"] = "This can't be right!"
+        }
+        this.setState({errors:errors});
+        return formIsValid
     };
 
+    onSubmit = (e) => {
+        e.preventDefault();
+        e.target.className += " was-validated";
+        console.log(this.state);
+        if(this.handleValidation()) {
+            const {title, date, description, type} = this.state;
+            this.ref.add({
+                title,
+                date,
+                description,
+                type,
+            })
+                .then((docRef) => {
+                    this.setState({
+                        title: '',
+                        date: '',
+                        description: '',
+                        type: ''
+                    });
+                    this.props.history.push("/");
+                })
+                .catch((error) => {
+                    console.error("Error adding document: ", error);
+                });
+        }
+        else{
+            alert("Form has errors");
+        }
+    };
     render() {
-        const {title,date,description} = this.state;
+        const {title,date,description,type,errors} = this.state;
          return(
             <MDBContainer>
-                { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop">Test</div> : null }
-
-                <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
-
-                <Modal
-                    className="modal"
-                    show={this.state.isShowing}
-                    close={this.closeModalHandler}>
-                    Maybe aircrafts fly very high because they don't want to be seen in plane sight?
-                </Modal>
                 <h4>
                     <Link to="/">Home</Link>
                 </h4>
-                <form onSubmit={this.onSubmit} className="mx-3 grey-text">
-                    <MDBInput name="date" icon="clock" label="Date" getValue={date} type="date" hint="Date" onChange={this.onChange} group/>
-                    <MDBInput name="title" icon="sticky-note" label="Title" getValue={title} type="text" hint="Title" onChange={this.onChange}  group/>
-                    <MDBInput name="description" icon="pencil-alt" label="Description" getValue={description} type="textarea" hint="Description" onChange={this.onChange} group/>
+                <form className="mx-3 grey-text needs-validation" noValidate onSubmit={this.onSubmit}>
+                      <MDBInput ref="type" name="type" icon="candy-cane" value={type.value} type="text" onChange={this.onChange} required>
+                          <div className="invalid-feedback" style={{textAlign:"center"}}>
+                              <p>{errors["type"]}</p>
+                          </div>
+                      </MDBInput>
+                    <MDBInput ref="date" name="date" icon="clock" value={date.value} type="date" onChange={this.onChange} required>
+                        <div className="invalid-feedback" style={{textAlign:"center"}}>
+                            <p>{errors["date"]}</p>
+                        </div>
+                    </MDBInput>
+                    <MDBInput ref="title" name="title" icon="sticky-note" label="Title" value={title.value} type="text" onChange={this.onChange} required>
+                        <div className="invalid-feedback"  style={{textAlign:"center"}}>
+                               <p>{errors["title"]}</p>
+                        </div>
+                    </MDBInput>
+                    <MDBInput ref="description" name="description" icon="pencil-alt" label="Description" value={description.value} type="textarea" onChange={this.onChange} required>
+                        <div className="invalid-feedback"  style={{textAlign:"center"}}>
+                            <p>{errors["description"]}</p>
+                        </div>
+                    </MDBInput>
                     <MDBBtn type="submit" color="secondary">Add</MDBBtn>
                 </form>
             </MDBContainer>

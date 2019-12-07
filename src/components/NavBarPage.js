@@ -42,7 +42,6 @@ class NavBarPage extends React.Component {
                                     </MDBNavItem>
                                     <MDBNavItem>
                                         <MDBNavLink to="/create">Add Note</MDBNavLink>
-                                        {/*<h4><Link to="/create">Add Note</Link></h4>*/}
                                     </MDBNavItem>
 
                                 </MDBNavbarNav>
