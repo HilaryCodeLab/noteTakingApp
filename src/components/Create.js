@@ -92,7 +92,8 @@ class Create extends Component{
                     <Link to="/">Home</Link>
                 </h4>
                 <form className="mx-3 grey-text needs-validation" noValidate onSubmit={this.onSubmit}>
-                      <MDBInput ref="type" name="type" icon="candy-cane" value={type.value} type="text" onChange={this.onChange} required>
+                      <MDBInput ref="type" hint="Personal/Work/Study"
+                                name="type" icon="candy-cane" value={type.value} type="text" onChange={this.onChange} required>
                           <div className="invalid-feedback" style={{textAlign:"center"}}>
                               <p>{errors["type"]}</p>
                           </div>

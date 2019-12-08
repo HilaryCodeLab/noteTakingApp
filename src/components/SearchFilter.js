@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import firebase from "firebase";
-import {MDBContainer} from "mdbreact";
+import {MDBContainer, MDBIcon} from "mdbreact";
 import Note from '../components/Note'
 import cList from '../data/countries'
 
@@ -46,16 +46,22 @@ onChange(e){
 
              return(
                  <MDBContainer>
-                     <input className="form-control" type="text" placeholder="Search here" onChange={this.onChange}/>
+                     <div className="active-pink-3 active-pink-4 mb-4">
+                         <form className="form-inline mt-4 mb-4">
+                             <MDBIcon icon="search"/>
+                             <input className="form-control" type="text" placeholder="Search here" onChange={this.onChange}/>
+                         </form>
+                     </div>
                      <ul>
                          {
                              filteredNotes.map(note=>{
                                  return(
                                      <Note
-                                        key={note.id}
+                                        // key={note.id}
                                          title={note.title}
                                             description={note.description}
                                             type={note.type}
+                                         key={`/show/${note.id}`}
                                      />
                                      )
 

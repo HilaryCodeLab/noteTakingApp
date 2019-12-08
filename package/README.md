@@ -1,27 +1,12 @@
-# @fortawesome/fontawesome-common-types - SVG with JavaScript
+Welcome to Note Taking Application!
+This is a Mobile Application with reactJS.
 
-> "I came here to chew bubblegum and install Font Awesome 5 - and I'm all out of bubblegum"
+This application allow you to take note in your everyday life.
 
-[![npm](https://img.shields.io/npm/v/@fortawesome/fontawesome-common-types.svg?style=flat-square)](https://www.npmjs.com/package/@fortawesome/fontawesome-common-types)
-
-## What is this package?
-
-Font Awesome 5 JavaScript packages support TypeScript. This package abstracts out some of the common definitions that those packages use.
-
-## Here be dragons
-
-If you are trying to import types from this package we *highly* recommend you do the following instead as *all types in this package are re-exported to the main fontawesome package*.
-
-your.ts
-
-```
-import {
-  IconName
-} from `@fortawesome/fontawesome`
-
-const myIcon: IconName = "..."
-```
-
-## Issues and support
-
-Start with [GitHub issues](https://github.com/FortAwesome/Font-Awesome/issues) and ping us on [Twitter](https://twitter.com/fontawesome) if you need to.
+Functionality
+it provides CRUD features which allow you to Create, Retrieve, Update and Delete your note as well as search ability to find a particular note.
+To get started
+On Home Page, click 'Add Note' to navigate to 'Create' page to add a note
+To edit note, click onto the note you wanted to update from the list on the Home Page, it will navigate to 'Edit' page to update the details
+To search for note, type in the title of note you are looking for on search input bar which is on the top right of the page
+To delete note, click onto the note you wanted to delete from the list on the Home Page, it will navigate to 'Edit' page to delete your note.

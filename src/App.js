@@ -76,14 +76,6 @@ onChange = (e) =>{
                 </MDBRow>
                 <MDBRow>
                     <h4><Link to="/create">Add Note</Link></h4>
-                    <MDBRow>
-                        <div className="active-pink-3 active-pink-4 mb-4">
-                            <form className="form-inline mt-4 mb-4">
-                                <MDBIcon icon="search"/>
-                                <input className="form-control" type="text" placeholder="Search here" onChange={this.onChange}/>
-                            </form>
-                        </div>
-                    </MDBRow>
                 </MDBRow>
                 <MDBRow>
                     <MDBCol md="6">
@@ -108,10 +100,8 @@ onChange = (e) =>{
                                     )}
                             </MDBTableBody>
                         </MDBTable>
-
                     </MDBCol>
                     <MDBCol md="6">
-                        Test Here....
                         <SearchFilter/>
                     </MDBCol>
                 </MDBRow>
